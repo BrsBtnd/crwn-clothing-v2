@@ -7,7 +7,7 @@ import {
 
 import FormInput from "../formInput/FormInput";
 import Button from "../button/Button";
- 
+
 import "./singUpForm.scss";
 
 const defaultFormFields = {
@@ -38,7 +38,7 @@ const SignUpForm = () => {
         email,
         password
       );
-
+      
       await createUserDocumentFromAuth(user, { displayName });
       resetFormFields();
     } catch (err) {

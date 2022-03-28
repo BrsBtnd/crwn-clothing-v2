@@ -1,5 +1,4 @@
-import { async } from "@firebase/util";
-import { initializeApp } from "firebase/app";
+import { initializeApp } from 'firebase/app';
 import {
   getAuth,
   signInWithRedirect,
@@ -7,16 +6,18 @@ import {
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-} from "firebase/auth";
-import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
+  signOut,
+  onAuthStateChanged,
+} from 'firebase/auth';
+import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCim8EYW1tP5oqV-abZ9uh1spESCmHYpU4",
-  authDomain: "crwn-clothing-db-a9da3.firebaseapp.com",
-  projectId: "crwn-clothing-db-a9da3",
-  storageBucket: "crwn-clothing-db-a9da3.appspot.com",
-  messagingSenderId: "189525742396",
-  appId: "1:189525742396:web:abd873b5a72ff232974439",
+  apiKey: 'AIzaSyCim8EYW1tP5oqV-abZ9uh1spESCmHYpU4',
+  authDomain: 'crwn-clothing-db-a9da3.firebaseapp.com',
+  projectId: 'crwn-clothing-db-a9da3',
+  storageBucket: 'crwn-clothing-db-a9da3.appspot.com',
+  messagingSenderId: '189525742396',
+  appId: '1:189525742396:web:abd873b5a72ff232974439',
 };
 
 // Initialize Firebase
@@ -25,7 +26,7 @@ const app = initializeApp(firebaseConfig);
 const googleProvider = new GoogleAuthProvider();
 
 googleProvider.setCustomParameters({
-  prompt: "select_account",
+  prompt: 'select_account',
 });
 
 export const auth = getAuth();
@@ -43,7 +44,7 @@ export const createUserDocumentFromAuth = async (
   // console.log(userAuth, additinalInformation);
   if (!userAuth) return;
 
-  const userDocRef = doc(db, "users", userAuth.uid);
+  const userDocRef = doc(db, 'users', userAuth.uid);
 
   const userSnapshot = await getDoc(userDocRef);
 
@@ -77,3 +78,8 @@ export const signInAuthUserWithEmailAndPassword = async (email, password) => {
 
   return await signInWithEmailAndPassword(auth, email, password);
 };
+
+export const signOutUser = async () => await signOut(auth);
+
+export const onAuthStateChangedListener = (callback) =>
+  onAuthStateChanged(auth, callback);

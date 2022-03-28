@@ -1,19 +1,19 @@
-import { useState } from "react";
+import { useState } from 'react';
 
 import {
   signInWithGooglePopup,
   createUserDocumentFromAuth,
   signInAuthUserWithEmailAndPassword,
-} from "../../utils/firebase/FirebaseUtils";
+} from '../../utils/firebase/FirebaseUtils';
 
-import FormInput from "../formInput/FormInput";
-import Button from "../button/Button";
+import FormInput from '../formInput/FormInput';
+import Button from '../button/Button';
 
-import "./SignInForm.scss";
+import './SignInForm.scss';
 
 const defaultFormFields = {
-  email: "",
-  password: "",
+  email: '',
+  password: '',
 };
 
 const SignInForm = () => {
@@ -21,8 +21,7 @@ const SignInForm = () => {
   const { email, password } = formFields;
 
   const singInWithGoogle = async () => {
-    const { user } = await signInWithGooglePopup();
-    await createUserDocumentFromAuth(user);
+    await signInWithGooglePopup();
   };
 
   const resetFormFields = () => {
@@ -33,21 +32,21 @@ const SignInForm = () => {
     event.preventDefault();
 
     try {
-      const response = await signInAuthUserWithEmailAndPassword(
+      const { user } = await signInAuthUserWithEmailAndPassword(
         email,
         password
       );
       resetFormFields();
     } catch (err) {
-      switch(err.code) {
-        case "auth/wrong-password":
-          alert("Incorrect password for email");
+      switch (err.code) {
+        case 'auth/wrong-password':
+          alert('Incorrect password for email');
           break;
-        case "auth/user-not-found":
-          alert("No user associated with this email");
+        case 'auth/user-not-found':
+          alert('No user associated with this email');
           break;
         default:
-          console.log("user creation encountered an error", err.message);   
+          console.log('user creation encountered an error', err.message);
       }
     }
   };
@@ -59,29 +58,29 @@ const SignInForm = () => {
   };
 
   return (
-    <div className="sign-up-container">
+    <div className='sign-up-container'>
       <h2>Already have an account</h2>
       <span>Sign in with your email and password</span>
       <form onSubmit={handleSubmit}>
         <FormInput
-          label="Email"
-          type="email"
+          label='Email'
+          type='email'
           required
           onChange={handleChange}
-          name="email"
+          name='email'
           value={email}
         />
         <FormInput
-          label="Password"
-          type="password"
+          label='Password'
+          type='password'
           required
           onChange={handleChange}
-          name="password"
+          name='password'
           value={password}
         />
-        <div className="buttons-container">
-          <Button type="submit">Sign In</Button>
-          <Button type="button" buttonType="google" onClick={singInWithGoogle}>
+        <div className='buttons-container'>
+          <Button type='submit'>Sign In</Button>
+          <Button type='button' buttonType='google' onClick={singInWithGoogle}>
             Google sign in
           </Button>
         </div>
