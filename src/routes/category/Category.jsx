@@ -1,10 +1,11 @@
 import { useContext, useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { Fragment } from 'react/cjs/react.production.min';
 
 import ProductCard from '../../components/productCard/ProductCard';
 import { CategoriesContext } from '../../contexts/CategoriesContext';
 
-import './Category.scss';
+import { CategoryContainer, CategoryTitle } from './CategoryStyle';
 
 const Category = () => {
   const { category } = useParams();
@@ -16,12 +17,15 @@ const Category = () => {
   }, [category, categoriesMap]);
 
   return (
-    <div className='category-container'>
-      {products &&
-        products.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
-    </div>
+    <Fragment>
+      <CategoryTitle>{category.toUpperCase()}</CategoryTitle>
+      <CategoryContainer >
+        {products &&
+          products.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+      </CategoryContainer>
+    </Fragment>
   );
 };
 
