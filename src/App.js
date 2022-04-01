@@ -6,30 +6,16 @@ import Shop from './routes/shop/Shop';
 import Checkout from './routes/checkout/Checkout';
 
 import { useEffect } from 'react';
+
+import { checkUserSession } from './store/user/UserAction';
 import { useDispatch } from 'react-redux';
-
-import { setCurrentUser } from './store/user/UserAction';
-
-import {
-  onAuthStateChangedListener,
-  createUserDocumentFromAuth,
-} from './utils/firebase/FirebaseUtils';
 
 const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChangedListener((user) => {
-      if (user) {
-        createUserDocumentFromAuth(user);
-      }
-      dispatch(setCurrentUser(user));
-    });
-
-    return unsubscribe;
-  }, [dispatch]); //if I want can place dispatch on there, but because I have
-          //only one dispatch function what is never going to be updated
-          //and rerendered
+    dispatch(checkUserSession());
+  }, []);
 
   return (
     <Routes>
