@@ -10,6 +10,7 @@ import { store, persistor } from './store/Store';
 import reportWebVitals from './reportWebVitals';
 import { stripePromise } from './utils/stripe/Stripe';
 
+import { GlobalStyle } from './GlobalStyles';
 import './index.scss';
 
 ReactDOM.render(
@@ -17,6 +18,7 @@ ReactDOM.render(
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <BrowserRouter>
+          <GlobalStyle />
           <Elements stripe={stripePromise}>
             <App />
           </Elements>

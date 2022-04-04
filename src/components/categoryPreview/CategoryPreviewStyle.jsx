@@ -17,4 +17,10 @@ export const CategoryPreviewStyle = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   column-gap: 20px;
+
+  @media screen and (max-width: 800px) {
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 15px;
+    justify-content: space-between;
+  }
 `;
